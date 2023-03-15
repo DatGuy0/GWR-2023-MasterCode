@@ -17,7 +17,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public static void shooter(double speed) {
-    shooter.set(VictorSPXControlMode.PercentOutput, speed);
+    shooter.set(VictorSPXControlMode.PercentOutput, speed * RobotContainer.shooterEntry.getDouble(0));
   }
 
   @Override
