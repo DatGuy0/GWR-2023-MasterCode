@@ -17,7 +17,7 @@ public class Kicker extends SubsystemBase {
   }
 
   public static void kicker(double speed) {
-    kicker.set(VictorSPXControlMode.PercentOutput, speed);
+    kicker.set(VictorSPXControlMode.PercentOutput, speed * RobotContainer.kickerEntry.getDouble(0));
   }
 
   @Override
