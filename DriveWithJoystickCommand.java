@@ -37,7 +37,7 @@ public class DriveWithJoystickCommand extends CommandBase {
   public void execute() {
     double forwardSpeed = RobotContainer.joystick.getRawAxis(1);// * Math.abs(RobotContainer.joystick.getRawAxis(1));
     double turningSpeed = RobotContainer.joystick.getRawAxis(4);// * Math.abs(RobotContainer.joystick.getRawAxis(4));
-    DrivetrainSubsystem.arcadeDrive(forwardSpeed, turningSpeed);
+    DrivetrainSubsystem.arcadeDrive(forwardSpeed*RobotContainer.maxSpeed.getDouble(0), turningSpeed*RobotContainer.maxSpeed.getDouble(0));
 
     // if(RobotContainer.joystick.getRawButtonPressed(4)){
     //   Intake.intake(-0.6);
