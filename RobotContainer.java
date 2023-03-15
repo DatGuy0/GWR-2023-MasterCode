@@ -91,6 +91,84 @@ public class RobotContainer {
   Trigger shoot = new JoystickButton(joystick, 9); 
   Trigger off = new JoystickButton(joystick, 10); 
 
+  public static Field2d field = new Field2d();
+  
+  public static ShuffleboardTab tab = Shuffleboard.getTab("Driver");
+
+  public static ComplexWidget fieldEntry = tab.add("Field", new Field2d())
+    .withWidget(BuiltInWidgets.kField)
+    .withSize(3,2)
+    .withPosition(6, 0);
+
+  public static GenericEntry maxSpeed = tab.add("Speed Multiplier", 0)
+    .withWidget(BuiltInWidgets.kNumberSlider)
+    .withProperties(Map.of("min", 0, "max", 1))
+    .withSize(2, 1)
+    .withPosition(0, 0)
+    .getEntry();
+  public static GenericEntry intakeEntry = tab.add("Intake Speed", 0)
+    .withWidget(BuiltInWidgets.kNumberSlider)
+    .withProperties(Map.of("min", 0, "max", 1))
+    .withSize(2, 1)
+    .withPosition(0, 1)
+    .getEntry();
+  public static GenericEntry kickerEntry = tab.add("Kicker Speed", 0)
+    .withWidget(BuiltInWidgets.kNumberSlider)
+    .withProperties(Map.of("min", 0, "max", 1))
+    .withSize(2, 1)
+    .withPosition(0, 2)
+    .getEntry();
+  public static GenericEntry shooterEntry = tab.add("Shooter Speed", 0)
+    .withWidget(BuiltInWidgets.kNumberSlider)
+    .withProperties(Map.of("min", 0, "max", 1))
+    .withSize(2, 1)
+    .withPosition(0, 3)
+    .getEntry();
+
+  public static GenericEntry pneumaUp = tab.add("Pneumatics Up", true)
+    .withWidget(BuiltInWidgets.kBooleanBox)
+    .withSize(1, 1)
+    .withPosition(6, 3)
+    .getEntry();
+  
+  public static GenericEntry pneumaMid = tab.add("Pneumatics Mid", false)
+    .withWidget(BuiltInWidgets.kBooleanBox)
+    .withSize(1, 1)
+    .withPosition(7, 3)
+    .getEntry();
+
+  public static GenericEntry pneumaDown = tab.add("Pneumatics Down", false)
+    .withWidget(BuiltInWidgets.kBooleanBox)
+    .withSize(1, 1)
+    .withPosition(8, 3)
+    .getEntry();
+
+  public static GenericEntry rollEntry = tab.add("Robot Roll", 0)
+    .withWidget(BuiltInWidgets.kDial)
+    .withSize(1, 1)
+    .withProperties(Map.of("min", -180, "max", 180))
+    .withPosition(6, 2)
+    .getEntry();
+  public static GenericEntry pitchEntry = tab.add("Robot Pitch", 0)
+    .withWidget(BuiltInWidgets.kDial)
+    .withSize(1, 1)
+    .withProperties(Map.of("min", -180, "max", 180))
+    .withPosition(7, 2)
+    .getEntry();
+  public static GenericEntry yawEntry = tab.add("Robot Yaw", 0)
+    .withWidget(BuiltInWidgets.kDial)
+    .withSize(1, 1)
+    .withProperties(Map.of("min", -180, "max", 180))
+    .withPosition(8, 2)
+    .getEntry();
+
+  public static ShuffleboardTab autoOptions = Shuffleboard.getTab("Autos");
+
+  public static SendableChooser<String> positionChooser = new SendableChooser<String>();
+
+  public static GenericEntry chosen = autoOptions.add("Position Number", 0)
+    .withPosition(2, 0)
+    .getEntry();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
