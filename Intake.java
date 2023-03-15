@@ -18,7 +18,7 @@ public class Intake extends SubsystemBase {
   }
 
   public static void intake(double speed) {
-    intake.set(VictorSPXControlMode.PercentOutput, speed);
+    intake.set(VictorSPXControlMode.PercentOutput, speed * RobotContainer.intakeEntry.getDouble(0));
   }
 
   @Override
