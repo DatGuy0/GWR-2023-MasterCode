@@ -46,6 +46,17 @@ public class Robot extends TimedRobot {
     // DrivetrainSubsystem.zeroHeading();
     // m_robotContainer.getDriveTrainSubsystem().resetEncoders();
     // DrivetrainSubsystem.setCoastMode();
+    
+    RobotContainer.positionChooser.addOption("Red Left", "Red_Left");
+    RobotContainer.positionChooser.addOption("Red Middle", "Red_Middle");
+    RobotContainer.positionChooser.addOption("Red Right", "Red_Right");
+    RobotContainer.positionChooser.addOption("Blue Left", "Blue_Left");
+    RobotContainer.positionChooser.addOption("Blue Middle", "Blue_Middle");
+    RobotContainer.positionChooser.addOption("Blue Right", "Blue_Right");
+    
+    RobotContainer.autoOptions.add("Position Chooser", RobotContainer.positionChooser)
+      .withWidget(BuiltInWidgets.kComboBoxChooser)
+      .withSize(2, 1);
   }
 
   /**
@@ -116,6 +127,30 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    
+    String positionSelection = RobotContainer.positionChooser.getSelected();
+
+    switch (positionSelection){
+      case "Red_Left":
+        choice = 1;
+        break;
+      case "Red_Middle":
+        choice = 2;
+        break;
+      case "Red_Right":
+        choice = 3;
+        break;
+      case "Blue_Left":
+        choice = 4;
+        break;
+      case "Blue_Middle":
+        choice = 5;
+        break;
+      case "Blue_Right":
+        choice = 6;
+        break;
+    }
+    RobotContainer.chosen.setInteger(choice);
   }
 
   /** This function is called periodically during operator control. */
