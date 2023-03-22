@@ -5,8 +5,15 @@
 package frc.robot;
 
 
-import edu.wpi.first.wpilibj.DigitalInput;
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.cscore.VideoSink;
+import edu.wpi.first.networktables.NetworkTableEntry;
+//import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -26,10 +33,18 @@ public class Robot extends TimedRobot {
 
   public static int count = 0;
 
-  public static DigitalInput photoelectric = new DigitalInput(0);
+  //public static DigitalInput photoelectric = new DigitalInput(0);
 
   //public static CANSparkMax intake = new CANSparkMax(4, MotorType.kBrushless);
 
+  // UsbCamera camera1;
+  // UsbCamera camera2;
+  // VideoSink server;
+  // NetworkTableEntry cameraSelection;
+  // AHRS gyro = new AHRS(SPI.Port.kMXP);
+
+  int choice = 0;
+  String positionSelection = "";
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -46,7 +61,15 @@ public class Robot extends TimedRobot {
     // DrivetrainSubsystem.zeroHeading();
     // m_robotContainer.getDriveTrainSubsystem().resetEncoders();
     // DrivetrainSubsystem.setCoastMode();
-    
+
+    // camera1 = CameraServer.startAutomaticCapture(0);
+    // camera2 = CameraServer.startAutomaticCapture(1);
+
+    // camera1.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+    // camera2.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+
+    // cameraSelection = NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection");
+
     RobotContainer.positionChooser.addOption("Red Left", "Red_Left");
     RobotContainer.positionChooser.addOption("Red Middle", "Red_Middle");
     RobotContainer.positionChooser.addOption("Red Right", "Red_Right");
@@ -57,6 +80,7 @@ public class Robot extends TimedRobot {
     RobotContainer.autoOptions.add("Position Chooser", RobotContainer.positionChooser)
       .withWidget(BuiltInWidgets.kComboBoxChooser)
       .withSize(2, 1);
+
   }
 
   /**
@@ -73,6 +97,12 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+    //Roll and Yaw seem to be swtiched 
+    // RobotContainer.rollEntry.setDouble((double) gyro.getYaw());
+    // RobotContainer.pitchEntry.setDouble((double) gyro.getPitch()-90);
+    // RobotContainer.yawEntry.setDouble((double) gyro.getRoll());
+
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -127,10 +157,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    
-    String positionSelection = RobotContainer.positionChooser.getSelected();
 
-    switch (positionSelection){
+    switch ((String) RobotContainer.positionChooser.getSelected()){
       case "Red_Left":
         choice = 1;
         break;
@@ -141,22 +169,34 @@ public class Robot extends TimedRobot {
         choice = 3;
         break;
       case "Blue_Left":
-        choice = 4;
+        choice = 3;
         break;
       case "Blue_Middle":
-        choice = 5;
+        choice = 2;
         break;
       case "Blue_Right":
-        choice = 6;
+        choice = 1;
         break;
     }
+
     RobotContainer.chosen.setInteger(choice);
+
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-
+    // if (RobotContainer.joystick.getRawButtonPressed(1)) {
+    //   if (cameraNum == 1){
+    //     cameraSelection.setString(camera2.getName());
+    //     cameraNum = 2;
+    //   }
+    //   else if (cameraNum == 2){
+    //     cameraSelection.setString(camera1.getName());
+    //     cameraNum = 1;
+    //   }
+    // }
+  
   }
 
   @Override
